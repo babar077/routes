@@ -1,9 +1,9 @@
  var mongoose = require('../connection/connection.js');
- var infoSchema = new mongoose.Schema({
+ var regiterSchema = new mongoose.Schema({
      firstName: {
          type: String
      },
-    passWord:{
+    lastName:{
           type:String
     },
      age: {

@@ -4,13 +4,16 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var status=require('./routes/status');
 var number=require('./routes/number');
 var product=require('./routes/product');
-var info=require('./routes/info');
+var info=require('./routes/showInfo');
+var login=require('./routes/showLogin');
+var multiplication=require('./routes/multiplication');
 
 var app = express();
 
@@ -34,8 +37,18 @@ app.get('/',status.addStatus);
 app.get('/random',number.addNumber);
 // multiply
 app.get('/multiply/:a/:b',product.addProduct);
-// storingInfo
-// app.get('/insert?name=sultan&age=20',info.addInfo);
+
+// login
+app.get('/login',login.viewLogin);
+app.post('/login',login.getLogin);
+// info
+app.get('/records',info.viewInfo);
+app.post('/record',info.addInfo);
+// Authenticator
+// app.post('/login', auth.login);
+// app.get('/signin/:username/:password', auth.login);
+
+
 
 
 /// catch 404 and forward to error handler
