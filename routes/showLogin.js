@@ -5,16 +5,27 @@ exports.viewLogin = function(req, res) {
 
 
 exports.getLogin = function(req, res) {
-    Info.find({
-            firstName: req.body.firstValue,
-            passWord: req.body.passValue
+    Info.findOne({
+        firstName: req.body.firstValue,
+        passWord: req.body.passValue
 
 
-
-        }, function(err, info) {
-            console.log(info)
-            res.render('confirmed.html');
-           
-            });
-
+    }, function(err, info) {
+    	if(info){
+        console.log(info)
+        res.render('confirmed.html');
+         req.session.currFirstName = info.firstName;
     }
+        else{
+        	res.render('notConfirmed.html');
+        }
+
+    });
+
+}
+
+
+
+	
+
+

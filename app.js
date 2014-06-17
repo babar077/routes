@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var helper = require('./helpers/helpers');
+var http = require('http');
+// var connect = require('connect');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -16,6 +19,7 @@ var login=require('./routes/showLogin');
 var multiplication=require('./routes/multiplication');
 
 var app = express();
+app.get('/',login.getLogin);
 
 // view engine setup
 cons = require('consolidate'),
@@ -43,22 +47,15 @@ app.get('/login',login.viewLogin);
 app.post('/login',login.getLogin);
 // info
 app.get('/records',info.viewInfo);
-app.post('/record',info.addInfo);
-// Authenticator
-// app.post('/login', auth.login);
-// app.get('/signin/:username/:password', auth.login);
+app.post('/record',helper.isLoggedIn,info.addInfo);
 
 
 
-
-/// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-
-/// error handlers
 
 // development error handler
 // will print stacktrace
